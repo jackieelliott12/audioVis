@@ -21,7 +21,7 @@ import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass'
 // }
 
 export function postprocessing(scene, camera, renderer) {
-	//effect composer composes our effects
+	//composer addPass is adding the effect to the screen
 	const composer = new EffectComposer(renderer)
 	composer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 	composer.setSize(window.innerWidth, window.innerHeight)
@@ -44,10 +44,10 @@ export function postprocessing(scene, camera, renderer) {
 	//composer.addPass(afterPass)
 
 	const glitchPass = new GlitchPass()
-	//glitchPass.enabled = true
 	glitchPass.enabled = false
 	glitchPass.goWild = false
 	composer.addPass(glitchPass)
+	
 	// const outlinePass = new OutlinePass(
 	// 	new Vector2(window.innerWidth, window.innerHeight),
 	// 	scene,
