@@ -12,6 +12,8 @@ import {
 //define my texture loader
 const loader = new TextureLoader()
 
+
+//need to figure out the disturb jpg not changing texture
 //example function using textures and mesh physical material
 export const addTexturedMesh = () => {
 	// color === map
