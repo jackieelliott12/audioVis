@@ -16,7 +16,6 @@ const camera = new THREE.PerspectiveCamera(
 	100
 )
 
-// Arrays and objects to store animation mixers, meshes, and lights
 const mixers = []
 const meshes = {}
 const lights = {}
@@ -24,14 +23,11 @@ const lights = {}
 const scene = new THREE.Scene()
 const baseScale = 1.5;
 
-
 let composer
 
-// Select HTML elements for audio file input and audio playback
 let file = document.querySelector('.audiofile')
 let audio = document.querySelector('.audio')
 
-// Variables for audio analysis
 let analyser
 let bufferTime
 let dataArray
@@ -50,7 +46,7 @@ function init() {
 	meshes.physical = addTexturedMesh()
 
 	lights.default = addLight()
-
+	
 	scene.add(lights.default)
 	//scene.add(meshes.default)
 	//scene.add(meshes.standard)
@@ -76,7 +72,7 @@ function instances() {
 		position: new THREE.Vector3(0, 0, 0),
 		//replace: true,
 		//replaceURL: 'disturb.jpg',
-		//if animation state = true we neeed mixers to be passed in too
+
 		animationState: true,
 		mixers: mixers,
 	})
@@ -84,28 +80,26 @@ function instances() {
 }
 
 function initAudio() {
-	// Create an audio context and connect it to the audio element
 	const context = new AudioContext()
 	const src = context.createMediaElementSource(audio)
 	analyser = context.createAnalyser()
 	src.connect(analyser)
 	analyser.connect(context.destination)
 
-	// Set up the analyser for frequency and time domain data
-	analyser.fftSize = 512 // Determines the size of the FFT (Fast Fourier Transform) used for frequency analysis
-	const bufferLength = analyser.frequencyBinCount // Half of fftSize, represents the number of data points in the frequency domain
-	dataArray = new Uint8Array(bufferLength) // Array to hold frequency data
-	bufferTime = new Uint8Array(bufferLength) // Array to hold time domain data
-	analyser.getByteTimeDomainData(bufferTime) // Fills bufferTime with time domain data (waveform)
+	analyser.fftSize = 512 //size of fft
+	const bufferLength = analyser.frequencyBinCount //# within the frequency domain
+	dataArray = new Uint8Array(bufferLength) //array that holds frequency data
+	bufferTime = new Uint8Array(bufferLength) //array that holds time domain data
+	analyser.getByteTimeDomainData(bufferTime) 
 }
 
 function loadAudio() {
-	// Play audio on document load
+	//play audio when page loads
 	document.onload = () => {
 		audio.play()
 	}
 
-	// Set up file input change event to load and play selected audio file
+	//load audio file
 	file.onchange = (e) => {
 		let file = e.target.files[0]
 		if (file) {
@@ -147,16 +141,14 @@ function animate() {
 		mixer.update(delta)
 	}
 	if (meshes.angel) {
-		// console.log(meshes.flower)
 		meshes.angel.rotation.y -= 0.01
 	}
 
-	// Update audio data and scale meshes based on audio analysis
 	if (analyser) {
-		analyser.getByteFrequencyData(dataArray) // Fills dataArray with frequency data (amplitude of each frequency)
-		analyser.getByteTimeDomainData(bufferTime) // Updates bufferTime with the current waveform data
-		averageFreq = getAverageFrequency(dataArray) // Calculate average frequency amplitude
-		averageAmp = getRMS(bufferTime) // Calculate root mean square of the waveform
+		analyser.getByteFrequencyData(dataArray) //fill dataArray with amplitude of each frequency
+		analyser.getByteTimeDomainData(bufferTime)
+		averageFreq = getAverageFrequency(dataArray) //average frequency amplitude
+		averageAmp = getRMS(bufferTime) //rms of waveform
 
 		// meshes.standard.scale.x = averageAmplitude * 0.003
 		// meshes.standard.scale.y = averageAmplitude * 0.003
@@ -171,14 +163,14 @@ function animate() {
 		// meshes.standard.scale.z = averageAmplitude * 0.003
 
 		if (averageAmp > 80 && averageAmp < 100) { 
-			composer.glitch.enabled = false   // Enable glitch for high frequency
-			composer.bloom.strength = 0.8   // Reduce bloom strength
+			composer.glitch.enabled = false   //glitch off
+			composer.bloom.strength = 0.8   //high bloom
 		} else if (averageFreq < 80 && averageFreq > 10) { 
-			composer.glitch.enabled = true
-			composer.bloom.strength = 0.1
+			composer.glitch.enabled = true //glitch on
+			composer.bloom.strength = 0.1 //low bloom
 		} else {
-			composer.glitch.enabled = false  // Disable glitch for low frequency
-			composer.bloom.strength = 0    // Increase bloom strength
+			composer.glitch.enabled = false  //glitch off
+			composer.bloom.strength = 0    //no bloom
 		}
 	}
 
@@ -188,7 +180,7 @@ function animate() {
 }
 
 function getAverageFrequency(dataArray) {
-	// Calculate the average frequency from the frequency data array
+	//calculates the average frequency from the frequency data array
 	let value = 0
 	const data = dataArray
 
@@ -200,7 +192,7 @@ function getAverageFrequency(dataArray) {
 }
 
 function getRMS(bufferTime) {
-	// Calculate the root mean square (RMS) of the time domain data
+	//calculates RM) of the time domain data
 	let bTime = bufferTime
 	var rms = 0
 	for (let i = 0; i < bTime.length; i++) {
