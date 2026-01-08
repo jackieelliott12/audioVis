@@ -17,7 +17,7 @@
 }
 
 
-.file {
+/* .file {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -32,5 +32,22 @@
 
 
 .audiofile {
-    display: block;
+    display: block; */
 }
+
+.audiofile {
+  display: none;
+}
+
+.file {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: 2px solid white;
+  border-radius: 5px;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
