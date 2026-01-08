@@ -17,11 +17,11 @@
 }
 
 
-/* .file {
+.file {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    padding: 10 15px;
+    padding: 10px 15px;
     border: 2px solid white;
     border-radius: 5px;
     display: inline-block;
@@ -32,22 +32,6 @@
 
 
 .audiofile {
-    display: block; */
-}
-
-.audiofile {
-  display: none;
-}
-
-.file {
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 15px;
-  border: 2px solid white;
-  border-radius: 5px;
-  text-align: center;
-  background-color: black;
-  color: white;
+    display: block;
 }
 
