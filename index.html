@@ -11,12 +11,27 @@
 <body>
   <div id="app">
   </div>
-  <div class="audio-container">
+  <!-- <div class="audio-container">
     <label for="thefile" class="file"> Choose an audio file
       <input type="file" class="audiofile" accept="audio/*" />
     </label>
     <audio class="audio" controls></audio>
-  </div>
+  </div> -->
+  <div class="audio-container">
+  <label for="thefile" class="file">
+    Choose an audio file
+  </label>
+
+  <input
+    id="thefile"
+    type="file"
+    class="audiofile"
+    accept="audio/*"
+  />
+
+  <audio class="audio" controls></audio>
+</div>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 
